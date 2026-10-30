@@ -27,10 +27,9 @@ def print_grades(subject):
     if subject in gradebook:
         print(subject, "grades:", gradebook[subject])
     else:
-        print("That subject is not in the gradebook.")
- 
- 
-# Prints every subject's average, plus the best and worst subjects
+        print("subject does not exist")
+
+
 def print_all_averages():
     best_subject = ""
     worst_subject = ""
@@ -40,8 +39,6 @@ def print_all_averages():
     for subject in gradebook:
         average = get_average(subject)
         print(subject + ":", round(average, 2))
- 
-        # Keep track of the highest and lowest averages so far
         if average > best_average:
             best_average = average
             best_subject = subject
@@ -72,5 +69,39 @@ def get_GPA():
     for subject in gradebook:
         total_points = total_points + grade_to_points(get_average(subject))
     return total_points / len(gradebook)
+
+
+def main():
+    choice = ""
+    while choice != "5":
+        print()
+        print("Gradebook Menu")
+        print("1: see class + average")
+        print("2: see class grades")
+        print("3: view GPA")
+        print("4: add new grade")
+        print("5: exit")
+        choice = input("enter a number  between 1 and 5")
+        print()
+ 
+        if choice == "1":
+            print_all_averages()
+        elif choice == "2":
+            print("Classes:", list(gradebook.keys()))
+            subject = input("which class: ")
+            print_grades(subject)
+            print_average(subject)
+        elif choice == "3":
+            print("Your GPA is:", round(get_GPA(), 2))
+        elif choice == "4":
+            subject = input("which class:")
+            grade = float(input("what was your grade:"))
+            add_grade(subject, grade)
+            print("grade added")
+        elif choice == "5":
+            print("byebye")
+        else:
+            print("enter a number between 1 and 5")
  
  
+main()
